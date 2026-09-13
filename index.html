@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NovaCart - Smart Products. Better Everyday.">
+<title>NovaCart | Smart Products</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #05070d;
+  color: white;
+  overflow-x: hidden;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5,7,13,.92);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid #16233d;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: #fff;
+}
+
+.logo span {
+  color: #00aaff;
+}
+
+.cart {
+  background: #071a2e;
+  border: 1px solid #008cff;
+  padding: 9px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.hero {
+  min-height: 470px;
+  padding: 75px 25px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 50% 30%, #073b70 0%, transparent 38%),
+    linear-gradient(145deg,#05070d,#071326,#05070d);
+}
+
+.hero h1 {
+  font-size: clamp(45px,12vw,85px);
+  line-height: .95;
+  margin-bottom: 20px;
+}
+
+.hero h1 span {
+  color: #00aaff;
+  text-shadow: 0 0 30px #008cff;
+}
+
+.hero p {
+  color: #b8c5d8;
+  font-size: 17px;
+  margin-bottom: 30px;
+}
+
+.btn {
+  display: inline-block;
+  width: fit-content;
+  margin: auto;
+  padding: 14px 25px;
+  border-radius: 30px;
+  background: linear-gradient(90deg,#0077ff,#00c6ff);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(0,153,255,.35);
+}
+
+section {
+  padding: 45px 18px;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 28px;
+}
+
+.title span {
+  color: #00aaff;
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 14px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.card {
+  background: linear-gradient(145deg,#0b111d,#07101c);
+  border: 1px solid #172943;
+  border-radius: 18px;
+  padding: 13px;
+  transition: .25s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #008cff;
+  box-shadow: 0 0 25px rgba(0,140,255,.15);
+}
+
+.product-img {
+  height: 145px;
+  border-radius: 13px;
+  background:
+    radial-gradient(circle,#075fa5,#06101d 65%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 55px;
+  margin-bottom: 12px;
+}
+
+.card h3 {
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+
+.card p {
+  color: #8fa0b7;
+  font-size: 13px;
+  min-height: 35px;
+}
+
+.price {
+  color: #00bfff;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 12px 0;
+}
+
+.buy {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  border: 1px solid #008cff;
+  background: #071a2c;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.buy:hover {
+  background: #008cff;
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 14px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.feature {
+  text-align: center;
+  background: #090f19;
+  border: 1px solid #172943;
+  border-radius: 16px;
+  padding: 22px 10px;
+}
+
+.feature-icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.feature h3 {
+  font-size: 16px;
+}
+
+.feature p {
+  color: #8999ae;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+footer {
+  border-top: 1px solid #16233d;
+  text-align: center;
+  padding: 35px 15px;
+  color: #718097;
+  font-size: 13px;
+}
+
+#toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #071a2c;
+  border: 1px solid #008cff;
+  padding: 13px 20px;
+  border-radius: 25px;
+  z-index: 999;
+  transition: .3s;
+}
+
+#toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+
+@media(max-width:500px) {
+  .products {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .product-img {
+    height: 120px;
+    font-size: 45px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+}
+
+@media(min-width:700px) {
+  .products {
+    grid-template-columns: repeat(4,1fr);
+  }
+
+  .features {
+    grid-template-columns: repeat(4,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Nova<span>Cart</span></div>
+  <div class="cart">🛒 Cart <b id="cartCount">0</b></div>
+</header>
+
+<section class="hero">
+  <h1>Shop <span>Smarter.</span></h1>
+  <p>Smart Products. Better Everyday.</p>
+  <a href="#products" class="btn">Explore Products →</a>
+</section>
+
+<section id="products">
+  <h2 class="title">Featured <span>Products</span></h2>
+
+  <div class="products">
+
+    <div class="card">
+      <div class="product-img">⌚</div>
+      <h3>Smart Watch</h3>
+      <p>Modern smartwatch for everyday use.</p>
+      <div class="price">₹1,999</div>
+      <button class="buy" onclick="addCart('Smart Watch')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <div class="product-img">🎧</div>
+      <h3>Wireless Earbuds</h3>
+      <p>Compact wireless audio experience.</p>
+      <div class="price">₹899</div>
+      <button class="buy" onclick="addCart('Wireless Earbuds')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <div class="product-img">🔊</div>
+      <h3>Mini Bluetooth Speaker</h3>
+      <p>Portable speaker with powerful sound.</p>
+      <div class="price">₹699</div>
+      <button class="buy" onclick="addCart('Bluetooth Speaker')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <div class="product-img">💡</div>
+      <h3>Smart LED Light</h3>
+      <p>Upgrade your room with smart lighting.</p>
+      <div class="price">₹499</div>
+      <button class="buy" onclick="addCart('Smart LED Light')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <div class="product-img">🔌</div>
+      <h3>Fast Charging Adapter</h3>
+      <p>Compact fast charging solution.</p>
+      <div class="price">₹599</div>
+      <button class="buy" onclick="addCart('Charging Adapter')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <div class="product-img">🎮</div>
+      <h3>Gaming Controller</h3>
+      <p>Level up your mobile gaming.</p>
+      <div class="price">₹1,499</div>
+      <button class="buy" onclick="addCart('Gaming Controller')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <div class="product-img">📱</div>
+      <h3>Phone Stand</h3>
+      <p>Adjustable stand for your smartphone.</p>
+      <div class="price">₹299</div>
+      <button class="buy" onclick="addCart('Phone Stand')">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      <div class="product-img">🖱️</div>
+      <h3>Wireless Mouse</h3>
+      <p>Smooth and comfortable wireless mouse.</p>
+      <div class="price">₹449</div>
+      <button class="buy" onclick="addCart('Wireless Mouse')">Add to Cart</button>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <h2 class="title">Why <span>NovaCart?</span></h2>
+
+  <div class="features">
+
+    <div class="feature">
+      <div class="feature-icon">🚚</div>
+      <h3>Fast Delivery</h3>
+      <p>Quick shipping options.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Secure Shopping</h3>
+      <p>Your shopping experience matters.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">💎</div>
+      <h3>Quality Products</h3>
+      <p>Products selected for NovaCart.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-icon">💬</div>
+      <h3>Customer Support</h3>
+      <p>We're here to help.</p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <h2>NovaCart</h2>
+  <p>Smart Products. Better Everyday.</p>
+  <br>
+  <p>© 2026 NovaCart. All rights reserved.</p>
+</footer>
+
+<div id="toast">Added to cart ✓</div>
+
+<script>
+let cart = 0;
+
+function addCart(product) {
+  cart++;
+  document.getElementById("cartCount").textContent = cart;
+
+  const toast = document.getElementById("toast");
+  toast.textContent = product + " added to cart ✓";
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1800);
+}
+</script>
+
+</body>
+</html>
